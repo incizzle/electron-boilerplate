@@ -1,11 +1,13 @@
+import { BrowserWindow, app, ipcMain } from "electron";
+
 const { format } = require('url')
 const { resolve } = require('app-root-path')
-const { BrowserWindow, app, ipcMain } = require("electron");
 const isDev = require('electron-is-dev')
+const devtron = require('devtron')
 
-let mainWindow;
+let mainWindow: BrowserWindow;
 
-function createWindow() {
+function createWindow(): void {
   mainWindow = new BrowserWindow({
     width: 1350,
     height: 725,
@@ -18,16 +20,20 @@ function createWindow() {
     }
   });
 
-  mainWindow.loadURL(
-    isDev
-      ? "http://localhost:3000"
-      : format({
+  if (isDev) {
+    mainWindow.loadURL("http://localhost:3000");
+    mainWindow.webContents.openDevTools()
+    devtron.install()
+  } else {
+    mainWindow.loadURL(
+      format({
         pathname: resolve('app/renderer/.parcel/production/index.html'),
         protocol: 'file:',
         slashes: true
       })
-  );
-  
+    );
+  }
+
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
