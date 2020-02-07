@@ -1,10 +1,18 @@
 import { BrowserWindow, app, ipcMain } from "electron";
-import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
-import { format } from 'url'
-import { resolve } from 'app-root-path'
+import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer";
+import { format } from "url"
+import { resolve } from "app-root-path"
+import Datastore from "nedb-promises"
 
-const isDev = require('electron-is-dev')
-const devtron = require('devtron')
+const isDev = require("electron-is-dev")
+const devtron = require("devtron")
+const datastore = (fileName: string) => Datastore.create({
+  filename: `${app.getAppPath()}/data/${fileName}`,
+  autoload: true
+})
+const db = {
+  logs: datastore('logs.db')
+};
 
 let mainWindow: BrowserWindow;
 
@@ -28,8 +36,8 @@ function createWindow(): void {
   } else {
     mainWindow.loadURL(
       format({
-        pathname: resolve('app/renderer/.parcel/production/index.html'),
-        protocol: 'file:',
+        pathname: resolve("app/renderer/.parcel/production/index.html"),
+        protocol: "file:",
         slashes: true
       })
     );

@@ -1,5 +1,6 @@
 node_modules
 .cache
 release
+/data
 /app/main/.parcel
 /app/renderer/.parcel

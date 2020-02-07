@@ -8,7 +8,7 @@ Electron boilerplate using:
 - Parcel
 - React Dev tools
 - Dev Tron
-
+- NEDB Promises
 # Usage
 
 ## Developing

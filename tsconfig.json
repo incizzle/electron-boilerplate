@@ -6,6 +6,7 @@
         "outDir": "dist",
         "baseUrl": ".",
         "jsx": "react",
+        "allowJs": true,
         "lib": [
             "dom",
             "dom.iterable",
@@ -16,9 +17,13 @@
                 "node_modules/*"
             ]
         },
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true
     },
     "include": [
         "app/**/*"
+    ],
+    "files": [
+        "./node_modules/@types/nedb-promises/index.d.ts"
     ]
 }
