@@ -4,3 +4,4 @@ release
 /data
 /app/main/.parcel
 /app/renderer/.parcel
+.DS_Store

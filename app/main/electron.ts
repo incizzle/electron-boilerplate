@@ -7,7 +7,7 @@ import Datastore from "nedb-promises"
 const isDev = require("electron-is-dev")
 const devtron = require("devtron")
 const datastore = (fileName: string) => Datastore.create({
-  filename: `${app.getAppPath()}/data/${fileName}`,
+  filename: `${app.getPath('userData')}/data/${fileName}`,
   autoload: true
 })
 const db = {
