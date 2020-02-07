@@ -6,7 +6,7 @@
   "homepage": "./src/public",
   "scripts": {
     "start": "concurrently \"npm run parcel:watch\" \"wait-on http://localhost:3000 && npm run electron:start\"",
-    "release": "npm run parcel:build && npm run electron:build",
+    "build": "npm run parcel:build && npm run electron:build",
     "parcel:watch": "concurrently \"npm run main:watch\" \"npm run renderer:watch\"",
     "parcel:build": "npm run main:build && npm run renderer:build",
     "electron:start": "electron .",
@@ -21,11 +21,13 @@
   "dependencies": {
     "app-root-path": "^3.0.0",
     "electron-is-dev": "^1.1.0",
+    "nedb": "^1.8.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
+    "@types/app-root-path": "^1.2.4",
     "@types/electron-devtools-installer": "^2.2.0",
     "@types/node": "^13.7.0",
     "@types/react": "^16.9.19",

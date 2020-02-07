@@ -1,8 +1,8 @@
 import { BrowserWindow, app, ipcMain } from "electron";
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+import { format } from 'url'
+import { resolve } from 'app-root-path'
 
-const { format } = require('url')
-const { resolve } = require('app-root-path')
 const isDev = require('electron-is-dev')
 const devtron = require('devtron')
 
