@@ -1,0 +1,90 @@
+{
+  "name": "electron-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app/main/.parcel/main.js",
+  "homepage": "./src/public",
+  "scripts": {
+    "start": "concurrently \"npm run parcel:watch\" \"wait-on http://localhost:3000 && npm run electron:start\"",
+    "release": "npm run parcel:build && npm run electron:build",
+    "parcel:watch": "concurrently \"npm run main:watch\" \"npm run renderer:watch\"",
+    "parcel:build": "npm run main:build && npm run renderer:build",
+    "electron:start": "nodemon --watch app/main/.parcel --exec \"electron .\"",
+    "electron:build": "electron-builder build --mac --win -c.extraMetadata.main=app/main/.parcel/main.js",
+    "main:watch": "parcel watch app/main/electron.ts --out-dir app/main/.parcel --out-file main --target electron",
+    "main:build": "parcel build app/main/electron.ts --out-dir app/main/.parcel --out-file main --target electron && gulp obfuscate",
+    "renderer:watch": "parcel app/renderer/index.html --port 3000 --out-dir app/renderer/.parcel/development",
+    "renderer:build": "parcel build app/renderer/index.html --public-url ./ --out-dir app/renderer/.parcel/production"
+  },
+  "author": "incizzle",
+  "license": "ISC",
+  "dependencies": {
+    "app-root-path": "^3.0.0",
+    "electron-is-dev": "^1.1.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.0",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "^16.9.5",
+    "@types/react-router-dom": "^5.1.3",
+    "vinyl-sourcemaps-apply": "^0.2.1",
+    "concurrently": "^5.1.0",
+    "cross-env": "^7.0.0",
+    "electron": "^8.0.0",
+    "electron-builder": "^22.3.2",
+    "gulp": "^4.0.2",
+    "gulp-javascript-obfuscator": "^1.1.6",
+    "parcel-bundler": "^1.12.4",
+    "tslint": "^6.0.0",
+    "typescript": "^3.7.5",
+    "wait-on": "^4.0.0"
+  },
+  "build": {
+    "productName": "ElectronBoilerplate",
+    "appId": "org.incizzle.ElectronBoilerplate",
+    "files": [
+      "app/**",
+      "!app/main/**",
+      "app/main/.parcel/main.js",
+      "!app/main/tests/**",
+      "!app/renderer/**",
+      "app/renderer/.parcel/production/**",
+      "!app/**/*.map"
+    ],
+    "dmg": {
+      "icon": "assets/icon.icns",
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "snap",
+        "AppImage"
+      ]
+    },
+    "directories": {
+      "output": "release",
+      "buildResources": "assets"
+    }
+  }
+}
