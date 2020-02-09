@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "app/main/.parcel/main.js",
-  "homepage": "./src/public",
+  "homepage": ".",
   "scripts": {
     "start": "concurrently \"npm run parcel:watch\" \"wait-on http://localhost:3000 && npm run electron:start\"",
     "build": "npm run parcel:build && npm run electron:build",
@@ -11,8 +11,8 @@
     "parcel:build": "npm run main:build && npm run renderer:build",
     "electron:start": "electron .",
     "electron:build": "electron-builder build --mac --win -c.extraMetadata.main=app/main/.parcel/main.js",
-    "main:watch": "parcel watch app/main/electron.ts --out-dir app/main/.parcel --out-file main --target electron",
-    "main:build": "parcel build app/main/electron.ts --out-dir app/main/.parcel --out-file main --target electron && gulp obfuscate",
+    "main:watch": "parcel watch app/main/electron.ts --out-dir app/main/.parcel --out-file main --target node",
+    "main:build": "parcel build app/main/electron.ts --out-dir app/main/.parcel --out-file main --target node && gulp obfuscate",
     "renderer:watch": "parcel app/renderer/index.html --port 3000 --out-dir app/renderer/.parcel/development",
     "renderer:build": "parcel build app/renderer/index.html --public-url ./ --out-dir app/renderer/.parcel/production"
   },

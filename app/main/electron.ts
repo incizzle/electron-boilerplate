@@ -1,10 +1,9 @@
 import { BrowserWindow, app, ipcMain } from "electron";
 import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer";
-import { format } from "url"
 import { resolve } from "app-root-path"
 import Datastore from "nedb-promises"
+import isDev from "electron-is-dev"
 
-const isDev = require("electron-is-dev")
 const devtron = require("devtron")
 const datastore = (fileName: string) => Datastore.create({
   filename: `${app.getPath('userData')}/data/${fileName}`,
@@ -30,17 +29,11 @@ function createWindow(): void {
   });
 
   if (isDev) {
-    mainWindow.loadURL("http://localhost:3000");
+    mainWindow.loadURL("http://localhost:3000#test");
     mainWindow.webContents.openDevTools()
     devtron.install()
   } else {
-    mainWindow.loadURL(
-      format({
-        pathname: resolve("app/renderer/.parcel/production/index.html"),
-        protocol: "file:",
-        slashes: true
-      })
-    );
+    mainWindow.loadURL(`file://${resolve("app/renderer/.parcel/production/index.html#test")}`)
   }
 
   mainWindow.on("closed", () => {
