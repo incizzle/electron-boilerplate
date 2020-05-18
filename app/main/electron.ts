@@ -1,17 +1,9 @@
 import { BrowserWindow, app, ipcMain } from "electron";
 import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer";
 import { resolve } from "app-root-path"
-import Datastore from "nedb-promises"
 import isDev from "electron-is-dev"
 
 const devtron = require("devtron")
-const datastore = (fileName: string) => Datastore.create({
-  filename: `${app.getPath('userData')}/data/${fileName}`,
-  autoload: true
-})
-const db = {
-  logs: datastore('logs.db')
-};
 
 let mainWindow: BrowserWindow;
 
